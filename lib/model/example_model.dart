@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
-class ExampleModel {
+class ExampleModel extends Equatable {
   final String id;
   final String contents;
   final List<ExampleSubModel> subContentList;
   final DateTime createdAt;
 
-  ExampleModel(
+  const ExampleModel(
       {required this.id,
       required this.contents,
       required this.subContentList,
@@ -58,13 +59,16 @@ class ExampleModel {
       'created_at': createdAt,
     };
   }
+
+  @override
+  List<Object?> get props => [id, contents, subContentList, createdAt];
 }
 
-class ExampleSubModel {
+class ExampleSubModel extends Equatable {
   final int id;
   final String contents;
 
-  ExampleSubModel({required this.id, required this.contents});
+  const ExampleSubModel({required this.id, required this.contents});
 
   factory ExampleSubModel.fromJson(Map<String, dynamic> json) {
     return ExampleSubModel(id: json['id'], contents: json['contents']);
@@ -76,4 +80,7 @@ class ExampleSubModel {
       'contents': contents,
     };
   }
+
+  @override
+  List<Object?> get props => [id, contents];
 }
